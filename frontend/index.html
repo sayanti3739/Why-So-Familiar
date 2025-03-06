@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search Page</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  
+  <div class="container">
+    <h1>Search Character Info</h1>
+  
+    <div class="search-container">
+      <input type="text" id="characterName" placeholder="Enter character name">
+      <span class="and-text">in</span>
+      <input type="text" id="titleName" placeholder="Enter movie/series name">
+    </div>
+  
+    <div class="type-selector">
+      <span>Is it a:</span>
+      <label><input type="radio" name="type" value="movie"> Movie</label>
+      <label><input type="radio" name="type" value="series"> Series</label>
+    </div>
+  
+    <button id="searchButton">Search</button>
+
+    <div id="resultsContainer" class="results-container">
+      <h2>Results:</h2>
+    
+      <p id="fullResultParagraph" class="full-result"></p>
+    </div>
+  
+    <!-- <pre id="result"></pre> -->
+  </div>
+
+  
+
+  <script src="testscript.js"></script>
+</body>
+</html>

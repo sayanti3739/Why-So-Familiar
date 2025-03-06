@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Welcome to your Dashboard</h1>
+    <button id="fetchToken">Get Bearer Token</button>
+    <pre id="tokenOutput"></pre>
+    <button id="logout">Logout</button>
+  </div>
+
+  <script>
+    document.getElementById('fetchToken').addEventListener('click', async () => {
+      const jwt = localStorage.getItem('jwt');
+      if (!jwt) {
+        alert('You are not logged in!');
+        window.location.href = '/login.html';
+        return;
+      }
+
+      const response = await fetch('/api/get-token', {
+        headers: { 'Authorization': `Bearer ${jwt}` }
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        document.getElementById('tokenOutput').textContent = data.bearerToken;
+      } else {
+        document.getElementById('tokenOutput').textContent = 'Failed to fetch token.';
+      }
+    });
+
+    document.getElementById('logout').addEventListener('click', () => {
+      localStorage.removeItem('jwt');
+      window.location.href = '/login.html';
+    });
+  </script>
+</body>
+</html>

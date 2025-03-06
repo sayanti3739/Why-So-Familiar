@@ -3,39 +3,63 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Search Page</title>
+  <title>Login</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  
   <div class="container">
-    <h1>Search Character Info</h1>
-  
-    <div class="search-container">
-      <input type="text" id="characterName" placeholder="Enter character name">
-      <span class="and-text">in</span>
-      <input type="text" id="titleName" placeholder="Enter movie/series name">
-    </div>
-  
-    <div class="type-selector">
-      <span>Is it a:</span>
-      <label><input type="radio" name="type" value="movie"> Movie</label>
-      <label><input type="radio" name="type" value="series"> Series</label>
-    </div>
-  
-    <button id="searchButton">Search</button>
-
-    <div id="resultsContainer" class="results-container">
-      <h2>Results:</h2>
-    
-      <p id="fullResultParagraph" class="full-result"></p>
-    </div>
-  
-    <!-- <pre id="result"></pre> -->
+    <h1>Login</h1>
+    <form id="loginForm">
+      <input type="text" id="accountid" placeholder="Account ID" required>
+      <input type="password" id="password" placeholder="Password" required>
+      <button type="submit">Login</button>
+    </form>
+    <p id="errorMessage"></p>
   </div>
 
-  
+  <script>
+    window.onload = function () {
+      const token = localStorage.getItem('jwt');
 
-  <script src="script.js"></script>
+      if (token) {
+        try {
+          const payload = JSON.parse(atob(token.split('.')[1]));
+          const expiry = payload.exp * 1000; // Convert to milliseconds
+          const now = Date.now();
+
+          if (expiry > now) {
+            // Token is still valid, redirect to dashboard
+            alert('User already logged in!');
+            window.location.href = '/dashboard.html';
+          }
+        } catch (err) {
+          console.error('Invalid token:', err);
+          // Invalid token; optionally clear it
+          localStorage.removeItem('jwt');
+        }
+      }
+    };
+    const form = document.getElementById('loginForm');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const accountid = document.getElementById('accountid').value;
+      const password = document.getElementById('password').value;
+
+      const response = await fetch('/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ accountid, password })
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        localStorage.setItem('jwt', data.jwt);
+        window.location.href = '/dashboard.html';
+      } else {
+        document.getElementById('errorMessage').textContent = 'Invalid credentials.';
+      }
+    });
+  </script>
 </body>
 </html>

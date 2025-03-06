@@ -412,11 +412,7 @@ document.getElementById("searchButton").addEventListener("click", async function
     }
 });
 
-document.getElementById('fetchToken').addEventListener('click', async () => {
-
-});
-
 document.getElementById('logout').addEventListener('click', () => {
-localStorage.removeItem('jwt');
-window.location.href = '/login.html';
+    localStorage.removeItem('jwt');
+    window.location.href = '/login.html';
 });

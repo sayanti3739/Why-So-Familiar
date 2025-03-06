@@ -22,12 +22,9 @@ app.use(express.static(path.join(__dirname, 'frontend')));
 app.use('/api', require('./backend/routes/api'));
 app.use('/auth', require('./backend/routes/auth'));
 
-// Serve frontend pages (example)
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'frontend', 'login.html')); // maybe change this to dashboard/login?
-});
+// Serve frontend pages 
 app.get('/login', (req, res) => {
-  res.sendFile(path.join(__dirname, 'frontend', 'login.html'));
+  res.sendFile(path.join(__dirname, 'frontend', 'index.html'));
 });
 
 const PORT = process.env.PORT || 4300;

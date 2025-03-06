@@ -4,7 +4,7 @@ document.getElementById("searchButton").addEventListener("click", async function
     const jwt = localStorage.getItem('jwt');
     if (!jwt) {
         alert('You are not logged in!');
-        window.location.href = '/login.html';
+        window.location.href = '/index.html';
         return;
     }
     var response = await fetch('/api/get-token', {
@@ -14,7 +14,8 @@ document.getElementById("searchButton").addEventListener("click", async function
         const data = await response.json();
         BEARER_TOKEN = data.bearerToken;
     } else {
-        alert('Failed to fetch bearer token.');
+        const data = await response.json();
+        alert(`Failed to fetch bearer token. : ${data.message}`);
     }
 
     const searchedCharacterName = document.getElementById('characterName').value.trim();
@@ -79,8 +80,11 @@ document.getElementById("searchButton").addEventListener("click", async function
                 console.log(actor[i]);                    
             }
 
-            if(actor.length == 0)
-                throw new Error(`Error : Actor could not be matched`);
+            if(actor.length == 0){
+                resultElement.textContent = `Error : Character ${searchedCharacterName} was not found in the movie ${titleName}.`;
+                resultsContainer.style.display = 'block';
+                return;
+            }
 
             // if (actor.length>1){
             //     alert(`There are more than 1 characters named ${searchedCharacterName} in ${titleName}. Please be more specific.`);
@@ -260,8 +264,11 @@ document.getElementById("searchButton").addEventListener("click", async function
                 console.log(actor[i]);                    
             }
 
-            if(actor.length == 0)
-                throw new Error(`Error : Actor could not be matched`);
+            if(actor.length == 0){
+                resultElement.textContent = `Error : Character ${searchedCharacterName} was not found in the series ${titleName}.`;
+                resultsContainer.style.display = 'block';
+                return;
+            }
 
             // if (actor.length>1){
             //     alert(`There are more than 1 characters named ${searchedCharacterName} in ${titleName}. Please be more specific.`);
@@ -384,13 +391,6 @@ document.getElementById("searchButton").addEventListener("click", async function
                         console.log(`wtf is happening between ${String(cast[actor]['name']).toLowerCase()} and ${searchForActor}`);
                     }
                 }
-                    // if(String(cast[actor]['name']).toLowerCase() === searchForActor.toLowerCase()){
-                    //     finalList += `${series_name} as \"${character_name}\"\n`;
-                    //     console.log(`finalList: ${finalList}`);
-                    //     break;
-                    // } else {
-                    //     console.log(`wtf is happening between ${String(cast[actor]['name']).toLowerCase()} and ${searchForActor}`);
-                    // }
             }
         }
         
@@ -410,9 +410,12 @@ document.getElementById("searchButton").addEventListener("click", async function
         console.error("API call failed:", error);
         document.getElementById("result").textContent = "An error occurred. Check console for details.";
     }
+
+    // TODO:
+    // 2) put a loading sign when the results are loading
 });
 
 document.getElementById('logout').addEventListener('click', () => {
     localStorage.removeItem('jwt');
-    window.location.href = '/login.html';
+    window.location.href = '/index.html';
 });

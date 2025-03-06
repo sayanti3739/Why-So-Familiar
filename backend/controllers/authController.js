@@ -10,14 +10,14 @@ exports.login = async (req, res) => {
     const user = await User.findOne({ accountid });
 
     if (!user) {
-      return res.status(401).json({ message: 'Invalid credentials' });
+      return res.status(401).json({ message: 'Invalid account id' });   // revert it to credentials
     }
 
     // Verify the password (assuming passwords are hashed)
     const isPasswordValid = await bcrypt.compare(password, user.password);
 
     if (!isPasswordValid) {
-      return res.status(401).json({ message: 'Invalid credentials' });
+      return res.status(401).json({ message: 'Invalid password' });   // revert it to credentials
     }
 
     // Get secret key

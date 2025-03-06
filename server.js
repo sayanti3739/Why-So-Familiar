@@ -19,7 +19,7 @@ mongoose.connect(process.env.MONGODB_URI, {
 app.use(express.static(path.join(__dirname, 'frontend')));
 
 // Backend routes
-// app.use('/api', require('./backend/routes/api'));
+app.use('/api', require('./backend/routes/api'));
 app.use('/auth', require('./backend/routes/auth'));
 
 // Serve frontend pages (example)

@@ -57,6 +57,9 @@
         localStorage.setItem('jwt', data.jwt);
         window.location.href = '/dashboard.html';
       } else {
+        const errorData = await response.json();
+        console.error('Error:', errorData.message || 'Unknown error');
+        alert(`Error: ${errorData.message}`);
         document.getElementById('errorMessage').textContent = 'Invalid credentials.';
       }
     });

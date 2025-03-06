@@ -8,7 +8,7 @@ require('dotenv').config();
 
 const mongoose = require('mongoose');
 
-mongoose.connect(process.env.MONGODB_URI, {
+mongoose.connect(process.env.AZURE_COSMOS_CONNECTIONSTRING, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })

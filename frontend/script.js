@@ -1,5 +1,5 @@
 document.getElementById("searchButton").addEventListener("click", async function() {
-    const BEARER_TOKEN = "";
+    var BEARER_TOKEN = "";
     // Fetch bearer token
     const jwt = localStorage.getItem('jwt');
     if (!jwt) {

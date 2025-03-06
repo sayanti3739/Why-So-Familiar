@@ -92,7 +92,7 @@ document.getElementById("searchButton").addEventListener("click", async function
             // finalList = `The actor you are searching for is : ${searchForActor}.\n`
 
             // ---------------------------------------- SEARCH IN WATCHED MOVIES ----------------------------------------
-            const WATCHLIST_MOVIE_API_URL = `https://api.themoviedb.org/3/account//watchlist/movies`;
+            const WATCHLIST_MOVIE_API_URL = `https://api.themoviedb.org/3/account/21855219/watchlist/movies`;
             var response = await fetch(WATCHLIST_MOVIE_API_URL, {
                 method: "GET",
                 headers: {

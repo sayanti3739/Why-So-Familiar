@@ -1,6 +1,7 @@
 document.getElementById("searchButton").addEventListener("click", async function() {
     var BEARER_TOKEN = "";
 
+    const loadingText = document.getElementById("loadingText");
     // Show loading text
     loadingText.style.display = "block";
 
@@ -27,7 +28,6 @@ document.getElementById("searchButton").addEventListener("click", async function
     const selectedType = document.querySelector('input[name="type"]:checked');
     const resultElement = document.getElementById('fullResultParagraph');
     const resultsContainer = document.getElementById('resultsContainer');
-    const loadingText = document.getElementById("loadingText");
 
     if (!selectedType) {
         alert('Please select whether it is a Movie or a Series.');

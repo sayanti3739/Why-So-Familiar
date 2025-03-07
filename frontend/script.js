@@ -2,8 +2,11 @@ document.getElementById("searchButton").addEventListener("click", async function
     var BEARER_TOKEN = "";
 
     const loadingText = document.getElementById("loadingText");
+    const resultElement = document.getElementById('fullResultParagraph');
     // Show loading text
     loadingText.style.display = "block";
+    // Hide resultElement
+    resultElement.style.display = none;
 
     // Fetch bearer token
     const jwt = localStorage.getItem('jwt');
@@ -26,7 +29,6 @@ document.getElementById("searchButton").addEventListener("click", async function
     const searchedCharacterName = document.getElementById('characterName').value.trim();
     const titleName = document.getElementById('titleName').value.trim();
     const selectedType = document.querySelector('input[name="type"]:checked');
-    const resultElement = document.getElementById('fullResultParagraph');
     const resultsContainer = document.getElementById('resultsContainer');
 
     if (!selectedType) {
@@ -86,6 +88,7 @@ document.getElementById("searchButton").addEventListener("click", async function
             }
 
             if(actor.length == 0){
+                loadingText.style.display = "none";
                 resultElement.textContent = `Error : Character ${searchedCharacterName} was not found in the movie ${titleName}.`;
                 resultsContainer.style.display = 'block';
                 return;
@@ -270,6 +273,7 @@ document.getElementById("searchButton").addEventListener("click", async function
             }
 
             if(actor.length == 0){
+                loadingText.style.display = "none";
                 resultElement.textContent = `Error : Character ${searchedCharacterName} was not found in the series ${titleName}.`;
                 resultsContainer.style.display = 'block';
                 return;

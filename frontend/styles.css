@@ -135,3 +135,8 @@ form input {
   margin-top: 1rem;
 }
 
+#loadingText {
+  font-size: 1.2rem;
+  color: #555;
+  font-style: italic;
+}

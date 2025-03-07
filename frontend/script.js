@@ -23,11 +23,16 @@ document.getElementById("searchButton").addEventListener("click", async function
     const selectedType = document.querySelector('input[name="type"]:checked');
     const resultElement = document.getElementById('fullResultParagraph');
     const resultsContainer = document.getElementById('resultsContainer');
+    const loadingText = document.getElementById("loadingText");
 
     if (!selectedType) {
         alert('Please select whether it is a Movie or a Series.');
         return;
     }
+
+    // Show loading text
+    loadingText.style.display = "block";
+    resultsContainer.textContent = ""; // Clear previous results
 
     const typeValue = selectedType.value;
 
@@ -403,16 +408,21 @@ document.getElementById("searchButton").addEventListener("click", async function
 
         finalList = `\"${searchedCharacterName}\" in ${titleName} is ${searchForActor}.` + "\n" + finalList;
 
+        // Hide loading text
+        loadingText.style.display = "none";
+
         resultElement.textContent = finalList;
         resultsContainer.style.display = 'block';
     
     } catch (error) {
         console.error("API call failed:", error);
+        loadingText.style.display = "none";
         document.getElementById("result").textContent = "An error occurred. Check console for details.";
     }
 
     // TODO:
     // 2) put a loading sign when the results are loading
+    // 1) can you get the accountId from the user input of index.html? Then use that value in the api url and also the accountid can be the name of the secret containing bearer token
 });
 
 document.getElementById('logout').addEventListener('click', () => {

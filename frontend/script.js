@@ -2,11 +2,12 @@ document.getElementById("searchButton").addEventListener("click", async function
     var BEARER_TOKEN = "";
 
     const loadingText = document.getElementById("loadingText");
-    const resultElement = document.getElementById('fullResultParagraph');
+    const resultsContainer = document.getElementById('resultsContainer');
+    
     // Show loading text
     loadingText.style.display = "block";
     // Hide resultElement
-    resultElement.style.display = "none";
+    resultsContainer.style.display = "none";
 
     // Fetch bearer token
     const jwt = localStorage.getItem('jwt');
@@ -29,7 +30,7 @@ document.getElementById("searchButton").addEventListener("click", async function
     const searchedCharacterName = document.getElementById('characterName').value.trim();
     const titleName = document.getElementById('titleName').value.trim();
     const selectedType = document.querySelector('input[name="type"]:checked');
-    const resultsContainer = document.getElementById('resultsContainer');
+    const resultElement = document.getElementById('fullResultParagraph');
 
     if (!selectedType) {
         alert('Please select whether it is a Movie or a Series.');

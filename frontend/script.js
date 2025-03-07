@@ -1,5 +1,9 @@
 document.getElementById("searchButton").addEventListener("click", async function() {
     var BEARER_TOKEN = "";
+
+    // Show loading text
+    loadingText.style.display = "block";
+
     // Fetch bearer token
     const jwt = localStorage.getItem('jwt');
     if (!jwt) {
@@ -29,10 +33,6 @@ document.getElementById("searchButton").addEventListener("click", async function
         alert('Please select whether it is a Movie or a Series.');
         return;
     }
-
-    // Show loading text
-    loadingText.style.display = "block";
-    resultsContainer.textContent = ""; // Clear previous results
 
     const typeValue = selectedType.value;
 

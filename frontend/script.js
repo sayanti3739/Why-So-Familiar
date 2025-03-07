@@ -6,7 +6,7 @@ document.getElementById("searchButton").addEventListener("click", async function
     // Show loading text
     loadingText.style.display = "block";
     // Hide resultElement
-    resultElement.style.display = none;
+    resultElement.style.display = "none";
 
     // Fetch bearer token
     const jwt = localStorage.getItem('jwt');
